@@ -41,5 +41,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            we2app/${{ github.event.repository.name }}:latest
-            we2app/${{ github.event.repository.name }}:1.0.0
+            ebots/${{ github.event.repository.name }}:latest
+            ebots/${{ github.event.repository.name }}:1.0.0
