@@ -31,5 +31,18 @@ RUN echo "**** install openvscode-server ****" && \
         /var/lib/apt/lists/* \
         /var/tmp/*
 
+# Create startup script
+RUN echo '#!/bin/bash' > /usr/local/bin/start-server.sh && \
+    echo 'echo "Starting OpenVSCode Server..."' >> /usr/local/bin/start-server.sh && \
+    echo 'cd /app/openvscode-server' >> /usr/local/bin/start-server.sh && \
+    echo 'exec ./bin/openvscode-server --host 0.0.0.0 --port 3000 --without-connection-token' >> /usr/local/bin/start-server.sh && \
+    chmod +x /usr/local/bin/start-server.sh
+
+# Set working directory
+WORKDIR /workspace
+
 # Expose port for OpenVSCode Server
 EXPOSE 3000
+
+# Set entrypoint to keep container running
+ENTRYPOINT ["/usr/local/bin/start-server.sh"]
